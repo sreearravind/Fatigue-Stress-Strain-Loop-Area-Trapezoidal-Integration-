@@ -1,34 +1,25 @@
 # LCF Hysteresis Loop Area (Energy per Cycle)
 
 This project calculates the **area enclosed by stress–strain hysteresis loops** for Low-Cycle Fatigue (LCF) data.  
-For each cycle, the loop area approximates the **dissipated energy per cycle**:
+For each cycle, the loop area approximates the **dissipated energy per cycle (energy density)**:
 
-W = ∮ σ dε
+`W = ∮ σ dε`
 
 ## Input
 - A folder containing **one CSV file per cycle**
-- CSV contains strain and stress columns (strain on x-axis, stress on y-axis)
-- Current parser assumes:
-  - strain = column B
-  - stress = column C
-  - header rows are skipped
+- Each CSV contains stress–strain loop points:
+  - **x-axis:** strain (dimensionless)
+  - **y-axis:** stress (MPa)
+- Default parser assumptions:
+  - strain = **column B** (index 1)
+  - stress = **column C** (index 2)
+  - header rows skipped = **2** (adjustable)
 
 ## Method
 Numerical integration using the **trapezoidal rule** over the ordered loop points.  
-Reported value is the **absolute enclosed area**.
+Reported value is the **absolute enclosed area** per cycle.
 
 ## How to run
 1. Install dependencies:
-   `pip install -r requirements.txt`
-
-2. Edit `folder_path` inside the script (or update to CLI arguments)
-
-3. Run:
-   `python src/lcf_hysteresis_area.py`
-
-## Output
-Prints loop area for each file (cycle) in the folder.
-
-## Notes
-- Units: Stress (MPa) × Strain (dimensionless) → MPa ≈ MJ/m³ (energy density).
-- Use synthetic/anonymized data in `examples/` if experimental data is confidential.
+   ```bash
+   pip install -r requirements.txt
